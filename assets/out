@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "PUT is not supported"
+exit 1

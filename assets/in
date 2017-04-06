@@ -1,0 +1,16 @@
+#!/bin/bash
+export TMPDIR=${TMPDIR:-/tmp}
+
+destination=$1
+cat > $payload <&0
+output=$(echo $payload | /opt/resource/in-org $destination)
+
+enpryption_key_path=$TMPDIR/git-encryption-key
+
+(jq -r '.source.encryption_key // empty' < $1) > $encryption_key_path
+(
+  cd $destination
+  /opt/resource/git-crypt unlock $encryption_key
+)
+
+echo $output
